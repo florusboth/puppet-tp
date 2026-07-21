@@ -17,7 +17,10 @@ module Puppet::Parser::Functions
 
     value = { }
 
-    if mp = Puppet::Module.find(datamodule, compiler.environment.to_s)
+    # fix for puppet8 (not tested on lower versions!
+    env = compiler.environment
+    if mp = env.module(datamodule)
+    #if mp = Puppet::Module.find(datamodule, compiler.environment.to_s)
 
       hiera_file_path  = mp.path + '/data/' + app + '/hiera.yaml'
 
